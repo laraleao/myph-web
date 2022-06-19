@@ -1,0 +1,56 @@
+.container {
+  background-color: white;
+  flex: 1;
+  align-items: center;
+  /* padding-horizontal: 32; */
+  padding-top: 50;
+}
+
+.text {
+  padding: 8;
+  color: #091357;
+  font-size: 25;
+  font-weight: bold;
+  letter-spacing: 0.25;
+}
+
+.textLogoNome {
+  font-size: 75;
+  font-weight: bold;
+  letter-spacing: 0.25;
+  color: #22577a;
+}
+
+.textLogo2 {
+  font-size: 22;
+  font-weight: bold;
+  letter-spacing: 0.25;
+  color: #2e798a;
+}
+
+#input {
+  margin-top: 8;
+  height: 40;
+  width: 230;
+  margin: 18;
+  border-width: 1;
+  border-radius: 2;
+  padding: 10;
+}
+
+#button {
+  align-items: center;
+  justify-content: center;
+  padding: 10;
+  height: 50;
+  width: 130;
+  background-color: #22577a;
+  border-radius: 2;
+}
+
+.buttonText {
+  color: white;
+  font-size: 20;
+  font-weight: bold;
+  letter-spacing: 0.25;
+}
