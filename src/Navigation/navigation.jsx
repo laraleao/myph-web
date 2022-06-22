@@ -33,7 +33,7 @@ const navigation = () => {
         </Link> */}
 
         <Link style={link} to="/remedio">
-          <li> Remédio</li>
+          <li> Cadastro de Remédio</li>
         </Link>
 
         <Link style={link} to="/listaRemedio">

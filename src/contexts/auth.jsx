@@ -1,3 +1,7 @@
+// FAZER CORS - para ligar com o back
+// pegar o do prof e no filter fazer o request get method.equals
+// quando chegar um metodo options ele tbm vai ignorar 
+
 import React, { useState, useEffect, createContext } from "react";
 
 import { useNavigate } from "react-router-dom";

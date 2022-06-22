@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { GiMedicinePills } from "react-icons/gi";
 
 import { AuthContext } from "../../contexts/auth";
 
@@ -18,6 +19,15 @@ const textLogo2 = {
   letterSpacing: 0.25,
   color: "#2E798A",
   textAlign: "center",
+};
+
+const textCasa = {
+  color: "#2E798A",
+  fontSize: 30,
+  fontWeight: "bold",
+  letterSpacing: 0.25,
+  textAlign: "center",
+  margin: 5,
 };
 
 const labelText = {
@@ -105,8 +115,11 @@ const LoginPage = () => {
 
   return (
     <div style={container}>
-      <h1 style={textLogo2}>My Pocket Home</h1>
-      <p>{String(authenticated)}</p>
+      <h1 style={textLogo2}>
+        MyPH <GiMedicinePills />
+      </h1>
+      <h3 style={textCasa}>My Pocket Home</h3>
+      <p>{""}</p>
       <div>
         <label style={textInput} className="subtitle">
           Login

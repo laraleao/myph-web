@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/navigation";
+import { HiOutlineCursorClick } from "react-icons/hi";
 
 const container = {
   backgroundColor: "white",
@@ -7,7 +8,6 @@ const container = {
   alignItems: "center",
   textAlign: "center",
   padding: 5,
-
 };
 
 const textRemedio = {
@@ -79,9 +79,18 @@ const Remedio = () => {
   const [nome, setNomeRemedio] = useState("");
   const [vencimento, setVencimento] = useState("");
   const [count, setCount] = useState(0);
-  //  const [url, setUrl] = useState("");
-  //  const [go, setGo] = useState(false);
-  //  const [qtde, setQtde] = useState("");
+  const [qtde, setQtde] = useState("");
+
+  const addCountHandler = () => {
+    setCount(count + 1);
+  };
+  const removeCountHandler = () => {
+    if (count === 0) {
+      return;
+    }
+    setCount(count - 1);
+  };
+
   //  const [associar, setAssociar] = useState("");
 
   //  if (go === false) {
@@ -90,7 +99,7 @@ const Remedio = () => {
       <Navigation />
 
       <div style={container}>
-        <h1 style={textRemedio}>Remédios</h1>
+        <h1 style={textRemedio}>Cadastro de Remédio</h1>
 
         <div style={espaco}>
           <label style={text}>Nome do Remédio:</label>
@@ -113,14 +122,12 @@ const Remedio = () => {
           ></input>
         </div>
 
-        {/* QUANTIDADE */}
-        {/* FAZER CONDIÇÃO PARA TROCAR DE COR E PARA NÃO SER NEGATIVO */}
         <div>
           <button
             style={buttonCount}
-            minValue={0}
-            maxValue={50}
-            onClick={() => setCount(count + 1)}
+            value={qtde}
+            onClick={addCountHandler}
+            onChange={(e) => setQtde(e.target.value)}
           >
             +
           </button>
@@ -132,13 +139,13 @@ const Remedio = () => {
               letterSpacing: 0.25,
             }}
           >
-            A quantidade é de: <span style={{ color: "#2E798A" }}>{count}</span>
+            A quantidade é de: <spam style={{ color: "#2E798A" }}>{count}</spam>
           </label>
           <button
             style={buttonCount}
-            minValue={0}
-            maxValue={50}
-            onClick={() => setCount(count - 1)}
+            value={qtde}
+            onClick={removeCountHandler}
+            onChange={(e) => setQtde(e.target.value)}
           >
             -
           </button>
@@ -157,8 +164,11 @@ const Remedio = () => {
               fontWeight: "bold",
             }}
           >
-            <spam style={{ color: "green" }}>Caso precise:</spam> Consulte a
-            BULA aqui
+            <spam style={{ color: "black" }}>Caso precise:</spam> Consulte a
+            BULA aqui{" "}
+            <spam style={{ color: "black" }}>
+              <HiOutlineCursorClick />
+            </spam>
           </a>
         </div>
 
@@ -168,37 +178,8 @@ const Remedio = () => {
         </button>
 
         {/* 
-       
-       <button>
-         <text
-           style={styles.text}
-           onChangeText={(text) => setUrl(text)}
-           value={url}
-         >
-           Bula
-         </text>
-         <button onPress={() => setGo(true)} title="Pesquisar Bula" />
-       </button>
-
-       <text style={styles.text}>Quantidade</text>
-       <input
-         style={styles.input}
-         value={qtde}
-         onChangeText={setQtde}
-         totalWidth={140}
-         totalHeight={50}
-         minValue={1}
-         maxValue={50}
-         valueType="integer"
-         iconSize={22}
-         step={1.5}
-         rounded
-         textColor="#091357"
-         rightButtonBackgroundColor="#22577E"
-         leftButtonBackgroundColor="#5584AC"
-       />
-
-       <button>
+ 
+        <button>
          <text style={styles.text}>Associar remédio</text>
          <input
            style={styles.input}

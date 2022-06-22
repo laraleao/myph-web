@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { GiMedicinePills } from "react-icons/gi";
 
 const container = {
   backgroundColor: "white",
@@ -107,7 +108,9 @@ const CadastroPage = () => {
       <form className="needs-validation" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <h1 style={textCadastro}>Faça seu cadastro na MyPH </h1>
+            <h1 style={textCadastro}>
+              Faça seu cadastro na MyPH <GiMedicinePills />
+            </h1>
             <label style={text} htmlFor="inputNome">
               Nome
             </label>
@@ -203,7 +206,7 @@ const CadastroPage = () => {
             </label>
             <input required style={input} type="text" {...register("cidade")} />
 
-            <label style={text} htmlFor="inputBirro">
+            <label style={text} htmlFor="inputBairro">
               Bairro
             </label>
             <input
