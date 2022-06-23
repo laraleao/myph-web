@@ -64,7 +64,6 @@ const AppRoutes = () => {
               </Private>
             }
           /> */}
-          <Route path="/home" element={<HomePage />} />
           <Route path="/remedio" element={<Remedio />} />
           <Route path="/listaRemedio" element={<ListaRemedio />} />
           <Route path="/alteraDados" element={<AlterarDados />} />

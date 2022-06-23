@@ -123,13 +123,17 @@ const Remedio = () => {
         </div>
 
         <div>
+          {/* TROCAR BOTÕES E FUNÇÕES */}
+
           <button
             style={buttonCount}
             value={qtde}
-            onClick={addCountHandler}
+            onClick={removeCountHandler}
             onChange={(e) => setQtde(e.target.value)}
+            
+
           >
-            +
+            -
           </button>
           <label
             style={{
@@ -144,10 +148,10 @@ const Remedio = () => {
           <button
             style={buttonCount}
             value={qtde}
-            onClick={removeCountHandler}
+            onClick={addCountHandler}
             onChange={(e) => setQtde(e.target.value)}
           >
-            -
+            +
           </button>
         </div>
 
