@@ -123,15 +123,11 @@ const Remedio = () => {
         </div>
 
         <div>
-          {/* TROCAR BOTÕES E FUNÇÕES */}
-
           <button
             style={buttonCount}
             value={qtde}
             onClick={removeCountHandler}
             onChange={(e) => setQtde(e.target.value)}
-            
-
           >
             -
           </button>
