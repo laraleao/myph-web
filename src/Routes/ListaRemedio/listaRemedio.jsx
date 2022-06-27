@@ -108,7 +108,7 @@ const ListaRemedio = (props) => {
                       onClick={() => {
                         console.log("excluir:");
                         console.table(remedios);
-                        excluir(remedios.idRemedio);
+                        excluir(remedios.id);
                       }}
                     >
                       Excluir

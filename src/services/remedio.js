@@ -6,7 +6,7 @@ class RemedioService {
     return axios
       .get(
         // CONFERIR ROTA
-        "http://localhost:8080/remedio"
+        `http://localhost:9090/myph/remedios`
         //, {headers: {
         //   Authorization: "Bearer hausidshd";
         // }} )
@@ -17,15 +17,19 @@ class RemedioService {
       });
   }
   inserirRemedio(remedio) {
-    return axios.post("http://localhost:8080/remedio", remedio);
+    return axios.post(`http://localhost:9090/myph/remedios`, remedio);
   }
 
   atualizaRemedio(remedio) {
-    return axios.put(`http://localhost:8080/remedio/${remedio.id}`, remedio);
+    return axios.put(
+      `http://localhost:9090/myph/remedios/${remedio.id}`,
+      remedio
+    );
   }
-  excluirRemedio(idRemedio) {
+  
+  excluirRemedio(id) {
     return axios
-      .delete(`http://localhost:8080/remedio/${idRemedio}`)
+      .delete(`http://localhost:9090/myph/remedios/${id}`)
       .catch((erro) => {
         throw erro;
       });
