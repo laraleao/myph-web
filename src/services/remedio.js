@@ -16,8 +16,20 @@ class RemedioService {
         throw erro;
       });
   }
-  //   caso seja remedio?nome
-  // , params: {nome: 'Dipirona'}
+  inserirRemedio(remedio) {
+    return axios.post("http://localhost:8080/remedio", remedio);
+  }
+
+  atualizaRemedio(remedio) {
+    return axios.put(`http://localhost:8080/remedio/${remedio.id}`, remedio);
+  }
+  excluirRemedio(idRemedio) {
+    return axios
+      .delete(`http://localhost:8080/remedio/${idRemedio}`)
+      .catch((erro) => {
+        throw erro;
+      });
+  }
 }
 
-export default new AlunoRemedios();
+export default new RemedioService();

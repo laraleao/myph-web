@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/navigation";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { HiOutlineCursorClick } from "react-icons/hi";
+import RemedioService from "../../services/remedio";
 
 const container = {
   backgroundColor: "white",
@@ -80,6 +83,9 @@ const Remedio = () => {
   const [vencimento, setVencimento] = useState("");
   const [count, setCount] = useState(0);
   const [qtde, setQtde] = useState("");
+  const { register } = useForm("");
+
+  const navigate = useNavigate();
 
   const addCountHandler = () => {
     setCount(count + 1);
@@ -91,109 +97,121 @@ const Remedio = () => {
     setCount(count - 1);
   };
 
-  //  const [associar, setAssociar] = useState("");
+  // COUNT COMO SETAR?
 
-  //  if (go === false) {
+  // só fazer a requisição ao servidor para salvar o formulário
+  const onSubmit = async (e) => {
+    try {
+      // remedio inserir
+      const res = await RemedioService.inserirRemedio({
+        nome,
+        vencimento,
+
+        qtde,
+      });
+
+      if (res.status === 201) {
+        alert("Remédio cadastrado com sucesso!");
+        navigate("/ListaRemedio");
+      } else {
+        console.log(res);
+        alert("Cadastro com erro!\n\nTente novamente.");
+      }
+    } catch (e) {}
+  };
+
   return (
     <div>
-      <Navigation />
+     <Navigation />
 
       <div style={container}>
-        <h1 style={textRemedio}>Cadastro de Remédio</h1>
+        <form className="needs-validation" onSubmit={onSubmit}>
+          <h1 style={textRemedio}>Cadastro de Remédio</h1>
 
-        <div style={espaco}>
-          <label style={text}>Nome do Remédio:</label>
-          <input
-            required
-            style={input}
-            type="text"
-            value={nome}
-            onChange={(e) => setNomeRemedio(e.target.value)}
-          ></input>
-        </div>
-        <div style={espaco}>
-          <label style={text}>Validade:</label>
-          <input
-            required
-            style={input}
-            type="text/number"
-            value={vencimento}
-            onChange={(e) => setVencimento(e.target.value)}
-          ></input>
-        </div>
+          <div style={espaco}>
+            <label style={text}>Nome do Remédio:</label>
+            <input
+              required
+              style={input}
+              type="text"
+              {...register("nome")}
+              value={nome}
+              onChange={(e) => setNomeRemedio(e.target.value)}
+            ></input>
+          </div>
+          <div style={espaco}>
+            <label style={text}>Validade:</label>
+            <input
+              required
+              style={input}
+              {...register("text/number")}
+              type="text/number"
+              value={vencimento}
+              onChange={(e) => setVencimento(e.target.value)}
+            ></input>
+          </div>
 
-        <div>
+          <div>
+            <button
+              style={buttonCount}
+              value={qtde}
+              onClick={removeCountHandler}
+              onChange={(e) => setQtde(e.target.value)}
+            >
+              -
+            </button>
+            <label
+              style={{
+                color: "#091357",
+                fontSize: 22,
+                fontWeight: "bold",
+                letterSpacing: 0.25,
+              }}
+            >
+              A quantidade é de:{" "}
+              <spam style={{ color: "#2E798A" }}>{count}</spam>
+            </label>
+            <button
+              style={buttonCount}
+              value={qtde}
+              onClick={addCountHandler}
+              onChange={(e) => setQtde(e.target.value)}
+            >
+              +
+            </button>
+          </div>
+
+          <div style={espaco}>
+            <a
+              className="bula"
+              href="https://www.bulario.com/"
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                textDecoration: "none",
+                fontSize: 22,
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              <spam style={{ color: "black" }}>Caso precise:</spam> Consulte a
+              BULA aqui{" "}
+              <spam style={{ color: "black" }}>
+                <HiOutlineCursorClick />
+              </spam>
+            </a>
+          </div>
+
+          {/* CRIAR FUNÇÃO ONCLICK */}
           <button
-            style={buttonCount}
-            value={qtde}
-            onClick={removeCountHandler}
-            onChange={(e) => setQtde(e.target.value)}
+            style={button}
+            type="submit"
+            onClick={() => onSubmit()}
+            method="POST"
           >
-            -
+            Cadastrar
           </button>
-          <label
-            style={{
-              color: "#091357",
-              fontSize: 22,
-              fontWeight: "bold",
-              letterSpacing: 0.25,
-            }}
-          >
-            A quantidade é de: <spam style={{ color: "#2E798A" }}>{count}</spam>
-          </label>
-          <button
-            style={buttonCount}
-            value={qtde}
-            onClick={addCountHandler}
-            onChange={(e) => setQtde(e.target.value)}
-          >
-            +
-          </button>
-        </div>
-
-        <div style={espaco}>
-          <a
-            className="bula"
-            href="https://www.bulario.com/"
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              textDecoration: "none",
-              fontSize: 22,
-              color: "red",
-              fontWeight: "bold",
-            }}
-          >
-            <spam style={{ color: "black" }}>Caso precise:</spam> Consulte a
-            BULA aqui{" "}
-            <spam style={{ color: "black" }}>
-              <HiOutlineCursorClick />
-            </spam>
-          </a>
-        </div>
-
-        {/* CRIAR FUNÇÃO ONCLICK */}
-        <button style={button} type="submit">
-          Cadastrar
-        </button>
-
-        {/* 
- 
-        <button>
-         <text style={styles.text}>Associar remédio</text>
-         <input
-           style={styles.input}
-           onChangeText={setAssociar}
-           value={associar}
-         />
-       </button>
-
-       CRIAR FUNCAO
-       <button onPress={() => FUNCAO()} style={styles.button}>
-         <text style={styles.buttonText}>Cadastrar</text>
-      </button>
-    </div>
-    </div> */}
+        </form>
       </div>
     </div>
   );

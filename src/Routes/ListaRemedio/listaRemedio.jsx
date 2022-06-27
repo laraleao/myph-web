@@ -17,6 +17,16 @@ import Navigation from "../../Navigation/navigation";
 //   textAlign: "center",
 // };
 
+const span = {
+  fontSize: 40,
+  fontWeight: "bold",
+  letterSpacing: 0.25,
+  color: "#2E798A",
+  // textAlign: "center",
+  // alignItens: "center",
+  // justifyContent: "center",
+};
+
 const listagem = {
   paddingBottom: "20px",
   color: "black",
@@ -51,9 +61,14 @@ const ListaRemedio = (props) => {
   // dados.push({ titulo: "teste" });
   // console.log("remedios da lista", dados);
 
-  // if (!dados || dados.length === 0) {
-  //   return <span>Não existem remedios a serem listados</span>;
-  // }
+  if (!remedios || remedios.length === 0) {
+    return (
+      <>
+        <Navigation />
+        <span style={span}>Não existem remédios a serem listados.</span>
+      </>
+    );
+  }
 
   return (
     <>
@@ -88,7 +103,14 @@ const ListaRemedio = (props) => {
                     </button>
                   </td>
                   <td style={td}>
-                    <button style={acoes} onClick={() => excluir(remedios.id)}>
+                    <button
+                      style={acoes}
+                      onClick={() => {
+                        console.log("excluir:");
+                        console.table(remedios);
+                        excluir(remedios.idRemedio);
+                      }}
+                    >
                       Excluir
                     </button>
                   </td>

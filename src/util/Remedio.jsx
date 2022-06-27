@@ -20,10 +20,13 @@ class Remedio extends React.Component {
     console.log("Estado no did:", this.state.remedios);
   }
 
-  carregarRemedios() {
-    RemedioService.buscarRemedios().then((remedios) => {
+  async carregarRemedios() {
+    try {
+      const remedios = await RemedioService.buscarRemedios();
       this.setState({ remedios: remedios });
-    });
+    } catch (erro) {
+      console.log("Erro:", erro);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -41,11 +44,14 @@ class Remedio extends React.Component {
 
   excluirRemedio(remedioId) {
     console.log("RemedioId:", remedioId);
-    this.setState({
-      remedios: this.state.remedios.filter(
-        (remedios) => remedios.id !== alunoId
-      ),
-    });
+
+  await RemedioService.excluirRemedio(remedioId);
+  this.carregarRemedios();
+    // this.setState({
+    //   remedios: this.state.remedios.filter(
+    //     (remedios) => remedios.id !== alunoId
+    //   ),
+    // });
   }
 
   // classComponente é sempre com this
