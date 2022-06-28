@@ -3,6 +3,7 @@
 // quando chegar um metodo options ele tbm vai ignorar 
 
 import React, { useState, useEffect, createContext } from "react";
+import UsuarioService from "../services/usuario"
 
 import { useNavigate } from "react-router-dom";
 
@@ -26,16 +27,19 @@ export const AuthProvider = ({ children }) => {
 
   //   navegação automática do login p/ home após autenticação
   //   dado fixo, sem servidor
-  const login = (email, senha) => {
+  const login = async (email, senha) => {
     // api criar uma session
 
     const loggedUser = {
-      id: "123",
       email,
+      senha,
     };
 
+    const token = await UsuarioService.login(loggedUser);
+    console.log("token: ", token);
+
     // GUARDAR TOKEN AQUI
-    localStorage.setItem("user", JSON.stringify(loggedUser));
+    localStorage.setItem("token", token);
 
     if (senha === "secret") {
       setUser({ loggedUser });

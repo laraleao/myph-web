@@ -7,17 +7,18 @@ class RemedioService {
       .get(
         // CONFERIR ROTA
         `http://localhost:9090/myph/remedios`
-        //, {headers: {
-        //   Authorization: "Bearer hausidshd";
-        // }} )
-      )
+        , {headers: {
+           Authorization: `Bearer ${localStorage.getItem("token")}`
+         }} )
       .then((response) => response.data)
       .catch((erro) => {
         throw erro;
       });
   }
   inserirRemedio(remedio) {
-    return axios.post(`http://localhost:9090/myph/remedios`, remedio);
+    return axios.post(`http://localhost:9090/myph/remedios`, remedio,
+     {headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`}});
   }
 
   atualizaRemedio(remedio) {

@@ -88,9 +88,10 @@ const LoginPage = () => {
   const [senha, setSenha] = useState("");
 
   const handleSubmit = (event) => {
-    event.preventDefaul();
+    event.preventDefault();
     console.log("submit", { email, senha });
     login(email, senha);
+    //navegate pra home
     // chamada de integração contexto e api
   };
 
