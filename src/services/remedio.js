@@ -23,14 +23,17 @@ class RemedioService {
 
   atualizaRemedio(remedio) {
     return axios.put(
-      `http://localhost:9090/myph/remedios/${remedio.id}`,
-      remedio
+      `http://localhost:9090/myph/remedios/${remedio.id}`, remedio,
+      {headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`}}
     );
   }
   
-  excluirRemedio(id) {
+  excluirRemedio(remedio) {
     return axios
-      .delete(`http://localhost:9090/myph/remedios/${id}`)
+      .delete(`http://localhost:9090/myph/remedios/${remedio.id}`,{
+        headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`}})
       .catch((erro) => {
         throw erro;
       });
