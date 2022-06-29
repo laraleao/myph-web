@@ -1,13 +1,19 @@
 import React from "react";
 import Navigation from "../../Navigation/navigation";
 
-// const container = {
-//   backgroundColor: "white",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   textAlign: "center",
-//   padding: 5,
-// };
+const container = {
+  backgroundColor: "white",
+  justifyContent: "center",
+  flex: 1,
+  flexDirection: "row",
+  textAlign: "center",
+  padding: 38,
+  fontSize: 40,
+  fontWeight: "bold",
+  letterSpacing: 0.25,
+  color: "#2E798A",
+  alignItens: "center",
+};
 
 // const textRemedio = {
 //   fontSize: 40,
@@ -16,16 +22,6 @@ import Navigation from "../../Navigation/navigation";
 //   color: "#2E798A",
 //   textAlign: "center",
 // };
-
-const span = {
-  fontSize: 40,
-  fontWeight: "bold",
-  letterSpacing: 0.25,
-  color: "#2E798A",
-  // textAlign: "center",
-  // alignItens: "center",
-  // justifyContent: "center",
-};
 
 const listagem = {
   paddingBottom: "20px",
@@ -54,6 +50,7 @@ const acoes = {
   border: "1px solid",
 };
 
+// UseEffect para busca - como filmes
 const ListaRemedio = (props) => {
   const { remedios, editar, excluir } = props;
   console.log("Remedios na Listagem", remedios);
@@ -64,64 +61,67 @@ const ListaRemedio = (props) => {
   if (!remedios || remedios.length === 0) {
     return (
       <>
+        {" "}
         <Navigation />
-        <span style={span}>Não existem remédios a serem listados.</span>
+        <div>
+          <span style={container}>Não existem remédios a serem listados.</span>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Navigation />
+
+        <div style={listagem}>
+          {remedios && remedios.length > 0 && (
+            <table style={tabela}>
+              <thead>
+                <tr>
+                  {/* cabeçalho */}
+                  <th style={th}>Nome Rémedio</th>
+                  <th style={th}>Validade</th>
+                  <th style={th}>Quantidade</th>
+                  <th style={acoes} colSpan="2">
+                    Ações
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* interando a lista */}
+                {remedios.map((remedios) => (
+                  <tr key={remedios.id}>
+                    {/* textos */}
+                    <td style={td}>{remedios.nomeRemedio}</td>
+                    <td style={td}>{remedios.vencimento}</td>
+                    <td style={td}>{remedios.quantidade}</td>
+                    {/* Fazer evento */}
+                    <td style={td}>
+                      <button style={acoes} onClick={() => editar(remedios)}>
+                        Editar
+                      </button>
+                    </td>
+                    <td style={td}>
+                      <button
+                        style={acoes}
+                        onClick={() => {
+                          console.log("excluir:");
+                          console.table(remedios);
+                          excluir(remedios.id);
+                        }}
+                      >
+                        Excluir
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </>
     );
   }
-
-  return (
-    <>
-      <Navigation />
-
-      <div style={listagem}>
-        {remedios && remedios.length > 0 && (
-          <table style={tabela}>
-            <thead>
-              <tr>
-                {/* cabeçalho */}
-                <th style={th}>Nome Remedio</th>
-                <th style={th}>Validade</th>
-                <th style={th}>Quantidade</th>
-                <th style={acoes} colSpan="2">
-                  Ações
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* interando a lista */}
-              {remedios.map((remedios) => (
-                <tr key={remedios.id}>
-                  {/* textos */}
-                  <td style={td}>{remedios.nomeRemedio}</td>
-                  <td style={td}>{remedios.vencimento}</td>
-                  <td style={td}>{remedios.quantidade}</td>
-                  {/* Fazer evento */}
-                  <td style={td}>
-                    <button style={acoes} onClick={() => editar(remedios)}>
-                      Editar
-                    </button>
-                  </td>
-                  <td style={td}>
-                    <button
-                      style={acoes}
-                      onClick={() => {
-                        console.log("excluir:");
-                        console.table(remedios);
-                        excluir(remedios.id);
-                      }}
-                    >
-                      Excluir
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-    </>
-  );
 };
 
 export default ListaRemedio;

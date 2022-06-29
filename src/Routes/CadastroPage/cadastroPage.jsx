@@ -71,8 +71,8 @@ const CadastroPage = () => {
   };
 
   const handleSignIn = async () => {
-    console.log(email, nome, senha);
-    if (email.length === 0 || nome.length === 0 || senha.length === 0) {
+    console.log(email, senha);
+    if (email.length === 0 || senha.length === 0) {
       return;
     } else {
       try {
@@ -80,16 +80,34 @@ const CadastroPage = () => {
         const response = await ("/usuario",
         {
           email: email,
-          nome: nome,
           senha: senha,
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
         }
       } catch (e) {
         console.log(e);
       }
     }
   };
+
+  // handleSignInPress = async () => {
+  //   console.log(email, password);
+  //   if (email.length === 0 || password.length === 0) {
+  //     return;
+  //   } else {
+  //     try {
+  //       const response = await api.post('/usuario/login', {
+  //         email: email,
+  //         senha: password,
+  //       });
+  //       if (response.status == 200) {
+  //         navigation.navigate('Inicio');
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
+  // };
 
   const checkCEP = (e) => {
     const cep = e.target.value.replace(/\D/g, "");

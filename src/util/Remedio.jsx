@@ -47,11 +47,6 @@ class Remedio extends React.Component {
 
   await RemedioService.excluirRemedio(id);
   this.carregarRemedios();
-    // this.setState({
-    //   remedios: this.state.remedios.filter(
-    //     (remedios) => remedios.id !== alunoId
-    //   ),
-    // });
   }
 
   // classComponente é sempre com this

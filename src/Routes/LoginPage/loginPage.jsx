@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { GiMedicinePills } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
+import UsuarioService from "../../services/usuario";
 
 import { AuthContext } from "../../contexts/auth";
 
@@ -91,28 +93,33 @@ const LoginPage = () => {
     event.preventDefault();
     console.log("submit", { email, senha });
     login(email, senha);
-    //navegate pra home
+
     // chamada de integração contexto e api
   };
 
-  // handleSignInPress = async () => {
-  //   console.log(email, password);
-  //   if (email.length === 0 || password.length === 0) {
-  //     return;
-  //   } else {
-  //     try {
-  //       const response = await api.post('/usuario/login', {
-  //         email: email,
-  //         senha: password,
-  //       });
-  //       if (response.status == 200) {
-  //         navigation.navigate('Inicio');
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  // };
+  const navigate = useNavigate();
+
+  // token em um lugar para ter chamada
+  const handleSignInPress = async () => {
+    console.log(email, senha);
+    if (email.length === 0 || senha.length === 0) {
+      return;
+    } else {
+      try {
+        const response = await UsuarioService.login({
+          email: email,
+          senha: senha,
+        });
+        if (response) {
+          // localStorage.setItem - para token passar nas outras chamadas
+          localStorage.setItem("token", response);
+          navigate("/listaRemedio");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <div style={container}>
@@ -158,7 +165,11 @@ const LoginPage = () => {
         </div>
 
         <div style={espacoBotao}>
-          <button style={button} type="submit">
+          <button
+            style={button}
+            type="submit"
+            onClick={() => handleSignInPress()}
+          >
             Entrar
           </button>
         </div>

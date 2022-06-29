@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import LoginPage from "./Routes/LoginPage/loginPage";
-import HomePage from "./Routes/HomePage/homePage";
 import CadastroPage from "./Routes/CadastroPage/cadastroPage";
 import Remedio from "./Routes/RemedioPage/remedioPage";
 import ListaRemedio from "./Routes/ListaRemedio/listaRemedio";
@@ -37,7 +36,7 @@ const AppRoutes = () => {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/cadastroPage" element={<CadastroPage />} />
           {/* Rota Privada */}
-          <Route
+          {/* <Route
             exact
             path="/"
             element={
@@ -45,7 +44,7 @@ const AppRoutes = () => {
                 <HomePage />
               </Private>
             }
-          />
+          /> */}
           {/* <Route
             exact
             path="/"

@@ -1,9 +1,8 @@
 // FAZER CORS - para ligar com o back
 // pegar o do prof e no filter fazer o request get method.equals
-// quando chegar um metodo options ele tbm vai ignorar 
+// quando chegar um metodo options ele tbm vai ignorar
 
 import React, { useState, useEffect, createContext } from "react";
-import UsuarioService from "../services/usuario"
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   //   navegação automática do login p/ home após autenticação
   //   dado fixo, sem servidor
-  const login = async (email, senha) => {
+  const login = (email, senha) => {
     // api criar uma session
 
     const loggedUser = {
@@ -35,11 +34,8 @@ export const AuthProvider = ({ children }) => {
       senha,
     };
 
-    const token = await UsuarioService.login(loggedUser);
-    console.log("token: ", token);
-
     // GUARDAR TOKEN AQUI
-    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(loggedUser));
 
     if (senha === "secret") {
       setUser({ loggedUser });
