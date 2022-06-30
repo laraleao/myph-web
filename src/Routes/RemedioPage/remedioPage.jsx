@@ -168,7 +168,7 @@ const Remedio = () => {
               }}
             >
               A quantidade é de:{" "}
-              <spam style={{ color: "#2E798A" }}>{count}</spam>
+              <span style={{ color: "#2E798A" }}>{count}</span>
             </label>
             <button
               style={buttonCount}
@@ -193,11 +193,11 @@ const Remedio = () => {
                 fontWeight: "bold",
               }}
             >
-              <spam style={{ color: "black" }}>Caso precise:</spam> Consulte a
+              <span style={{ color: "black" }}>Caso precise:</span> Consulte a
               BULA aqui{" "}
-              <spam style={{ color: "black" }}>
+              <span style={{ color: "black" }}>
                 <HiOutlineCursorClick />
-              </spam>
+              </span>
             </a>
           </div>
 

@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Navigation from "../../Navigation/navigation";
 import RemedioService from "../../services/remedio";
 import { useEffect } from "react";
-import axios from "axios";
-import { useState } from "react";
 
 const container = {
   backgroundColor: "white",
@@ -59,8 +57,8 @@ const acoes = {
 
 const ListaRemedio = () => {
   const [remedios,setRemedios]= useState(() => {});
-  const [editar,setEditar]= useState(() => {});
-  const [excluir,setExcluir]= useState(() => {})
+  const [exibirEditarRemedio, setExibirEditarRemedio] = useState(false);
+  const [idDoRemedioParaEditar, setIdDoRemedioParaEditar] = useState(-1);
   console.log("Remedios na Listagem", remedios);
 
   // dados.push({ titulo: "teste" });
@@ -74,7 +72,20 @@ const ListaRemedio = () => {
     carregarRemedios() 
   },[])
 
-  if (!remedios || remedios.length === 0) {
+  function editar(editar) {
+    setExibirEditarRemedio(true);
+    setIdDoRemedioParaEditar(editar.remedioId);
+  }
+
+  if(exibirEditarRemedio == true) {
+    return (
+      <>
+        <h1>Editar remedio</h1>
+        <h2>Editar {idDoRemedioParaEditar}</h2>
+      </>
+    );
+  }
+  else if (!remedios || remedios.length === 0) {
     return (
       <>
         {" "}
@@ -106,7 +117,7 @@ const ListaRemedio = () => {
               <tbody>
                 {/* interando a lista */}
                 {remedios.map((remedios) => (
-                  <tr key={remedios.id}>
+                  <tr key={remedios.remedioId}>
                     {/* textos */}
                     <td style={td}>{remedios.nomeRemedio}</td>
                     <td style={td}>{remedios.vencimento}</td>
