@@ -91,7 +91,6 @@ const LoginPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("submit", { email, senha });
     login(email, senha);
 
     // chamada de integração contexto e api
@@ -116,7 +115,7 @@ const LoginPage = () => {
           navigate("/listaRemedio");
         }
       } catch (e) {
-        console.log(e);
+        
       }
     }
   };

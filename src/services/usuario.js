@@ -3,7 +3,6 @@ import axios from "axios";
 // colocar login em algum lugar paara recuperar
 class UsuarioService {
   login(usuario) {
-    console.log("usuario: ", usuario);
     return axios
       .post(`http://localhost:9090/myph/usuario/login`, usuario, {
         transformResponse: (response) => response,

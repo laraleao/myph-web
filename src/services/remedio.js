@@ -33,9 +33,9 @@ class RemedioService {
     );
   }
 
-  excluirRemedio(remedio) {
+  excluirRemedio(idRemedio) {
     return axios
-      .delete(`http://localhost:9090/myph/remedios/${remedio.id}`, {
+      .delete(`http://localhost:9090/myph/remedios/${idRemedio}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

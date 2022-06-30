@@ -79,12 +79,12 @@ const button = {
 
 //  FAZER
 const Remedio = () => {
-  const [nome, setNomeRemedio] = useState("");
+  const [nomeRemedio, setNomeRemedio] = useState("");
   const [vencimento, setVencimento] = useState("");
   const [count, setCount] = useState(0);
-  const [qtde, setQtde] = useState("");
+  const [quantidade, setQtde] = useState("");
   const { register } = useForm("");
-
+  
   const navigate = useNavigate();
 
   const addCountHandler = () => {
@@ -104,12 +104,11 @@ const Remedio = () => {
     try {
       // remedio inserir
       const res = await RemedioService.inserirRemedio({
-        nome,
+        nomeRemedio,
         vencimento,
-
-        qtde,
+        quantidade,
       });
-
+      console.log(res);
       if (res.status === 201) {
         alert("Remédio cadastrado com sucesso!");
         navigate("/ListaRemedio");
@@ -135,7 +134,7 @@ const Remedio = () => {
               style={input}
               type="text"
               {...register("nome")}
-              value={nome}
+              value={nomeRemedio}
               onChange={(e) => setNomeRemedio(e.target.value)}
             ></input>
           </div>
@@ -154,7 +153,7 @@ const Remedio = () => {
           <div>
             <button
               style={buttonCount}
-              value={qtde}
+              value={quantidade}
               onClick={removeCountHandler}
               onChange={(e) => setQtde(e.target.value)}
             >
@@ -173,7 +172,7 @@ const Remedio = () => {
             </label>
             <button
               style={buttonCount}
-              value={qtde}
+              value={quantidade}
               onClick={addCountHandler}
               onChange={(e) => setQtde(e.target.value)}
             >

@@ -1,5 +1,9 @@
 import React from "react";
 import Navigation from "../../Navigation/navigation";
+import RemedioService from "../../services/remedio";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const container = {
   backgroundColor: "white",
@@ -51,12 +55,24 @@ const acoes = {
 };
 
 // UseEffect para busca - como filmes
-const ListaRemedio = (props) => {
-  const { remedios, editar, excluir } = props;
+
+
+const ListaRemedio = () => {
+  const [remedios,setRemedios]= useState(() => {});
+  const [editar,setEditar]= useState(() => {});
+  const [excluir,setExcluir]= useState(() => {})
   console.log("Remedios na Listagem", remedios);
 
   // dados.push({ titulo: "teste" });
   // console.log("remedios da lista", dados);
+  useEffect(()=>{
+    async function carregarRemedios() {
+      const remedios = await RemedioService.buscarRemedios()
+      setRemedios(remedios)
+      console.log(remedios)
+    }
+    carregarRemedios() 
+  },[])
 
   if (!remedios || remedios.length === 0) {
     return (
@@ -104,10 +120,11 @@ const ListaRemedio = (props) => {
                     <td style={td}>
                       <button
                         style={acoes}
-                        onClick={() => {
+                        onClick={async () => {
                           console.log("excluir:");
                           console.table(remedios);
-                          excluir(remedios.id);
+                          await RemedioService.excluirRemedio(remedios.remedioId);
+                          window.location.reload();
                         }}
                       >
                         Excluir
