@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { HiOutlineCursorClick } from "react-icons/hi";
 import RemedioService from "../../services/remedio";
 
+
 const container = {
   backgroundColor: "white",
   justifyContent: "center",
@@ -47,21 +48,6 @@ const espaco = {
   padding: 15,
 };
 
-const buttonCount = {
-  alignItems: "center",
-  justifyContent: "center",
-  textDecoration: "none",
-  border: "none",
-  backgroundColor: "#22577A",
-  height: 30,
-  width: 30,
-  color: "white",
-  borderRadius: 3,
-  cursor: "pointer",
-  fontSize: 20,
-  margin: 30,
-};
-
 const button = {
   textDecoration: "none",
   border: "none",
@@ -81,42 +67,46 @@ const button = {
 const Remedio = () => {
   const [nomeRemedio, setNomeRemedio] = useState("");
   const [vencimento, setVencimento] = useState("");
-  const [count, setCount] = useState(0);
-  const [quantidade, setQtde] = useState("");
+   const [quantidade, setQuantidade] = useState(0);
   const { register } = useForm("");
   
   const navigate = useNavigate();
 
-  const addCountHandler = () => {
-    setCount(count + 1);
-  };
-  const removeCountHandler = () => {
-    if (count === 0) {
-      return;
-    }
-    setCount(count - 1);
-  };
+
 
   // COUNT COMO SETAR?
 
   // só fazer a requisição ao servidor para salvar o formulário
-  const onSubmit = async (e) => {
+  const cadastrarRemedio = async (e) => {
+    console.log("ON SUBMIT OIIIIIIIII")
     try {
       // remedio inserir
+      console.log("TRY")
       const res = await RemedioService.inserirRemedio({
         nomeRemedio,
         vencimento,
         quantidade,
       });
+      
+      
       console.log(res);
+
+      console.log("passou aqui")
+      alert("alert alert")
+      //console.log(res);
       if (res.status === 201) {
+        console.log("201");
         alert("Remédio cadastrado com sucesso!");
-        navigate("/ListaRemedio");
+        window.location.href = "/listaRemedio";
+        //navigate("/listaRemedio");
       } else {
         console.log(res);
+        console.log("else: nao é 201");
         alert("Cadastro com erro!\n\nTente novamente.");
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log("CAIU NO CATCH");
+    }
   };
 
   return (
@@ -124,7 +114,6 @@ const Remedio = () => {
      <Navigation />
 
       <div style={container}>
-        <form className="needs-validation" onSubmit={onSubmit}>
           <h1 style={textRemedio}>Cadastro de Remédio</h1>
 
           <div style={espaco}>
@@ -150,35 +139,17 @@ const Remedio = () => {
             ></input>
           </div>
 
-          <div>
-            <button
-              style={buttonCount}
+                  <div style={espaco}>
+            <label style={text}>Quantidade:</label>
+            <input
+              required
+              style={input}
+              {...register("number")}
+              type="number"
               value={quantidade}
-              onClick={removeCountHandler}
-              onChange={(e) => setQtde(e.target.value)}
-            >
-              -
-            </button>
-            <label
-              style={{
-                color: "#091357",
-                fontSize: 22,
-                fontWeight: "bold",
-                letterSpacing: 0.25,
-              }}
-            >
-              A quantidade é de:{" "}
-              <span style={{ color: "#2E798A" }}>{count}</span>
-            </label>
-            <button
-              style={buttonCount}
-              value={quantidade}
-              onClick={addCountHandler}
-              onChange={(e) => setQtde(e.target.value)}
-            >
-              +
-            </button>
-          </div>
+              onChange={(e) => setQuantidade(e.target.value)}
+            ></input>
+            </div>
 
           <div style={espaco}>
             <a
@@ -204,13 +175,10 @@ const Remedio = () => {
           {/* CRIAR FUNÇÃO ONCLICK */}
           <button
             style={button}
-            type="submit"
-            onClick={() => onSubmit()}
-            method="POST"
+            onClick={() => {cadastrarRemedio()}}
           >
             Cadastrar
           </button>
-        </form>
       </div>
     </div>
   );

@@ -13,12 +13,22 @@ class RemedioService {
         throw erro;
       });
   }
-  inserirRemedio(remedio) {
-    return axios.post(`http://localhost:9090/myph/remedios`, remedio, {
+  async inserirRemedio(remedio) {
+    const response = await axios.post(`http://localhost:9090/myph/remedios`, remedio, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    });
+    }).then(response => {
+      console.log("data")
+      console.log(response.data)
+      return response;
+    })
+    .catch(error => {
+      console.log("erro request")
+      return error;
+    })
+
+    return response;
   }
 
   atualizaRemedio(remedio) {
