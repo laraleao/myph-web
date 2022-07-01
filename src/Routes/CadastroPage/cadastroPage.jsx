@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GiMedicinePills } from "react-icons/gi";
-import LoginPage from "../LoginPage/loginPage";
 import UsuarioService from "../../services/usuario";
 
 const container = {
