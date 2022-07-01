@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/navigation";
 import { useForm } from "react-hook-form";
-import { HiOutlineCursorClick } from "react-icons/hi";
 import RemedioService from "../../services/remedio";
 
 const container = {
@@ -61,7 +60,6 @@ const button = {
   margin: 15,
 };
 
-//  FAZER
 const Remedio = () => {
   const [nomeRemedio, setNomeRemedio] = useState("");
   const [vencimento, setVencimento] = useState("");
@@ -138,28 +136,6 @@ const Remedio = () => {
           ></input>
         </div>
 
-        <div style={espaco}>
-          <a
-            className="bula"
-            href="https://www.bulario.com/"
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              textDecoration: "none",
-              fontSize: 22,
-              color: "red",
-              fontWeight: "bold",
-            }}
-          >
-            <span style={{ color: "black" }}>Caso precise:</span> Consulte a
-            BULA aqui{" "}
-            <span style={{ color: "black" }}>
-              <HiOutlineCursorClick />
-            </span>
-          </a>
-        </div>
-
-        {/* CRIAR FUNÇÃO ONCLICK */}
         <button
           style={button}
           onClick={() => {
