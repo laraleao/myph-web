@@ -32,7 +32,7 @@ const AppRoutes = () => {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/cadastroPage" element={<CadastroPage />} />
           {/* Rota Privada */}
           <Route

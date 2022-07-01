@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GiMedicinePills } from "react-icons/gi";
+import LoginPage from "../LoginPage/loginPage";
+import UsuarioService from "../../services/usuario";
 
 const container = {
   backgroundColor: "white",
@@ -62,28 +64,69 @@ const CadastroPage = () => {
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
   const [senhaConfirmar, setSenhaConfirmar] = useState("");
+  const [rua, setRua] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [cep, setCep] = useState("");
 
-  const { register, handleSubmit, setValue } = useForm("");
+  const cadastro = [
+    email,
+    nome,
+    senha,
+    senhaConfirmar,
+    rua,
+    bairro,
+    cidade,
+    estado,
+    cep,
+  ];
+
+  const { register, setValue } = useForm("");
 
   // só fazer a requisição ao servidor para salvar o formulário
-  const cadastrarRemedio = async (e) => {
+  const cadastrarUsuario = async (e) => {
+    e.preventDefault();
+
+    if (
+      !email ||
+      !nome ||
+      !senha ||
+      !senhaConfirmar ||
+      !rua ||
+      !bairro ||
+      !cidade ||
+      !estado ||
+      !cep
+    ) {
+      console.log(cadastro);
+      alert("É necessário preencher todos os campos!");
+      return;
+    }
+
     try {
-      // remedio inserir
+      // usuario inserir
       console.log("TRY");
-      const res = await UsuarioService.inserirUsuario({
-        nomeRemedio,
-        vencimento,
-        quantidade,
+      const response = await UsuarioService.inserirUsuario({
+        nome,
+        email,
+        senha,
+        senhaConfirmar,
+        rua,
+        bairro,
+        cidade,
+        estado,
+        cep,
       });
 
-      console.log(res);
+      console.log(response);
       //console.log(res);
-      if (res.status === 201) {
+      if (response.status === 201) {
         console.log("201");
-        alert("Remédio cadastrado com sucesso!");
-        window.location.href = "/listaRemedio";
+        alert("Usuário cadastrado com sucesso!");
+        window.location.href = "/";
       } else {
-        console.log(res);
+        console.log(response);
         console.log("else: nao é 201");
         alert("Cadastro com erro!\n\nTente novamente.");
       }
@@ -98,15 +141,19 @@ const CadastroPage = () => {
       .then((res) => res.json())
       .then((data) => {
         setValue("endereco", data.logradouro);
+        setRua(data.logradouro);
         setValue("cidade", data.localidade);
+        setCidade(data.localidade);
         setValue("bairro", data.bairro);
+        setBairro(data.bairro);
         setValue("estado", data.uf);
+        setEstado(data.uf);
       });
   };
 
   return (
     <div style={container}>
-      <form className="needs-validation" onSubmit={handleSubmit(onSubmit)}>
+      <form className="needs-validation">
         <div className="form-row">
           <div className="form-group col-md-6">
             <h1 style={textCadastro}>
@@ -177,6 +224,8 @@ const CadastroPage = () => {
             placeholder="Digite seu CEP"
             {...register("cep")}
             onBlur={checkCEP}
+            value={cep}
+            onChange={(e) => setCep(e.target.value)}
           ></input>
 
           <label style={text} htmlFor="inputEndereco">
@@ -189,6 +238,8 @@ const CadastroPage = () => {
             {...register("endereco")}
             id="inputEndereco"
             placeholder="Rua X, nº 0"
+            value={rua}
+            onChange={(e) => setRua(e.target.value)}
           />
           <label style={text} htmlFor="inputComplemento">
             N°/Complemento
@@ -205,7 +256,14 @@ const CadastroPage = () => {
             <label style={text} htmlFor="inputCity">
               Cidade
             </label>
-            <input required style={input} type="text" {...register("cidade")} />
+            <input
+              required
+              style={input}
+              type="text"
+              {...register("cidade")}
+              value={cidade}
+              onChange={(e) => setCidade(e.target.value)}
+            />
 
             <label style={text} htmlFor="inputBairro">
               Bairro
@@ -215,6 +273,8 @@ const CadastroPage = () => {
               style={input}
               type="text"
               {...register("bairro")}
+              value={bairro}
+              onChange={(e) => setBairro(e.target.value)}
             ></input>
             <label style={text} htmlFor="inputEstado">
               Estado
@@ -224,11 +284,17 @@ const CadastroPage = () => {
               style={input}
               type="text"
               {...register("estado")}
+              value={estado}
+              onChange={(e) => setEstado(e.target.value)}
             ></input>
           </div>
         </div>
 
-        <button style={button} type="submit" onClick={() => handleSignIn()}>
+        <button
+          style={button}
+          type="submit"
+          onClick={(e) => cadastrarUsuario(e)}
+        >
           Cadastrar
         </button>
       </form>

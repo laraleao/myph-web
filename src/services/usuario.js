@@ -4,7 +4,7 @@ import axios from "axios";
 class UsuarioService {
   async inserirUsuario(usuario) {
     const response = await axios
-      .post(`http://localhost:9090/myph/remedios`, usuario)
+      .post(`http://localhost:9090/myph/usuario`, usuario)
       .then((response) => {
         console.log("data");
         console.log(response.data);
