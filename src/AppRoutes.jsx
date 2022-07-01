@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -35,37 +34,32 @@ const AppRoutes = () => {
         <Routes>
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/cadastroPage" element={<CadastroPage />} />
-          {/* Rota Privada */}
-          {/* <Route
+          {/* Rotas Privada */}
+          <Route
             exact
-            path="/"
+            path="/listaRemedio"
             element={
               <Private>
-                <HomePage />
+                <ListaRemedio />
               </Private>
             }
-          /> */}
-          {/* <Route
-            exact
-            path="/"
+          />
+          <Route
+            path="/remedio"
             element={
               <Private>
-                <HomePage />
+                <Remedio />
               </Private>
             }
-          /> */}
-          {/* <Route
-            exact
-            path="/"
+          />
+          <Route
+            path="/alteraDados"
             element={
               <Private>
-                <HomePage />
+                <AlterarDados />
               </Private>
             }
-          /> */}
-          <Route path="/remedio" element={<Remedio />} />
-          <Route path="/listaRemedio" element={<ListaRemedio />} />
-          <Route path="/alteraDados" element={<AlterarDados />} />
+          />
         </Routes>
       </AuthProvider>
     </Router>

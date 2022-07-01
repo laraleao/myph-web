@@ -36,15 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     // GUARDAR TOKEN AQUI
     localStorage.setItem("user", JSON.stringify(loggedUser));
-
-    if (senha === "secret") {
-      setUser({ loggedUser });
-      navigate("/");
-    }
   };
-
-  // user != null
-  // authenticated = true
 
   const logout = () => {
     localStorage.removeItem("user");

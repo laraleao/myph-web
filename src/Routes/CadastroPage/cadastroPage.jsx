@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { GiMedicinePills } from "react-icons/gi";
+import UsuarioService from "../../services/usuario";
 
 const container = {
   backgroundColor: "white",
@@ -58,56 +58,161 @@ const button = {
 };
 
 const CadastroPage = () => {
-  const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [senhaConfirmar, setSenhaConfirmar] = useState("");
+  const [rua, setRua] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [cep, setCep] = useState("");
 
-  const { register, handleSubmit, setValue } = useForm("");
+  const { register, setValue } = useForm("");
 
-  // só fazer a requisição ao servidor para salvar o formulário
-  const onSubmit = (e) => {
-    console.log(e);
-  };
+  const cadastrarUsuario = async (e) => {
+    console.log("ON SUBMIT OIIIIIIIII");
+    try {
+      // usuario inserir
+      console.log("TRY");
+      const response = await UsuarioService.inserirUsuario({
+        nome,
+        email,
+        senha,
+        senhaConfirmar,
+        rua,
+        bairro,
+        cidade,
+        estado,
+        cep,
+      });
 
-  const handleSignIn = async () => {
-    console.log(email, senha);
-    if (email.length === 0 || senha.length === 0) {
-      return;
-    } else {
-      try {
-        // await api.post...
-        const response = await ("/usuario",
-        {
-          email: email,
-          senha: senha,
-        });
-        if (response.status === 201) {
-        }
-      } catch (e) {
-        console.log(e);
+      console.log(response);
+
+      console.log("passou aqui");
+      alert("alert alert");
+      //console.log(res);
+      if (response.status === 201) {
+        console.log("201");
+        alert("Usuário cadastrado com sucesso!");
+        window.location.href = "/loginPage";
+      } else {
+        console.log(response);
+        console.log("else: nao é 201");
+        alert("Cadastro com erro!\n\nTente novamente.");
       }
+    } catch (e) {
+      console.log("CAIU NO CATCH");
     }
   };
 
-  // handleSignInPress = async () => {
-  //   console.log(email, password);
-  //   if (email.length === 0 || password.length === 0) {
+  // só fazer a requisição ao servidor para salvar o formulário
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const {
+  //     nome,
+  //     email,
+  //     senha,
+  //     senhaConfirmar,
+  //     rua,
+  //     bairro,
+  //     cidade,
+  //     estado,
+  //     cep,
+  //   } = this.state;
+  //   if (
+  //     !nome ||
+  //     !email ||
+  //     !senha ||
+  //     !senhaConfirmar ||
+  //     !rua ||
+  //     !bairro ||
+  //     !cidade ||
+  //     !estado ||
+  //     !cep
+  //   ) {
+  //     this.setState({ error: "Preencha todos os dados para se cadastrar" });
+  //   } else {
+  //     console.log(this.state);
+  //     try {
+  //       await UsuarioService.inserirUsuario(
+  //         `http://localhost:9090/myph/usuario`,
+  //         {
+  //           nome,
+  //           email,
+  //           senha,
+  //           senhaConfirmar,
+  //           rua,
+  //           bairro,
+  //           cidade,
+  //           estado,
+  //           cep,
+  //         }
+  //       );
+  //       // if (response.status === 201) {
+  //       //   navigate("/loginPage");
+  //       // }
+  //     } catch (err) {
+  //       console.log(err);
+  //       this.setState({ error: "Ocorreu um erro ao registrar sua conta. T.T" });
+  //     }
+
+  //     // if  {
+  //     //   alert("Usuário cadastrado com sucesso!");
+  //     //   ;
+  //     // } else {
+  //     //   console.log(response);
+  //     //   alert("Formulário com erro!\n\nTente novamente.");
+  //     // }
+  //   }
+
+  // const handleSignIn = async () => {
+  //   console.log(email, senha);
+  //   if (
+  //     email.length === 0 ||
+  //     senha.length === 0 ||
+  //     senhaConfirmar.length === 0 ||
+  //     rua.length === 0 ||
+  //     numero.length === 0 ||
+  //     bairro.length === 0 ||
+  //     cidade.length === 0 ||
+  //     estado.length === 0 ||
+  //     cep.length === 0
+  //   );
+
+  // const handleSignInPress = async () => {
+  //   console.log(email, senha);
+  //   if (email.length === 0 || senha.length === 0) {
   //     return;
   //   } else {
   //     try {
-  //       const response = await api.post('/usuario/login', {
+  //       const response = await UsuarioService.salvarUsuario({
+  //         nome: nome,
   //         email: email,
-  //         senha: password,
+  //         senha: senha,
+  //         senhaConfirmar: senhaConfirmar,
+  //         rua: rua,
+  //         numero: numero,
+  //         bairro: bairro,
+  //         cidade: cidade,
+  //         estado: estado,
+  //         pais: pais,
+  //         cep: cep,
+  //         telefone: telefone,
+  //         ativo: ativo,
   //       });
-  //       if (response.status == 200) {
-  //         navigation.navigate('Inicio');
+  //       if (response) {
+  //         // localStorage.setItem - para token passar nas outras chamadas
+  //         localStorage.setItem("token", response);
+  //         navigate("/login");
   //       }
   //     } catch (e) {
   //       console.log(e);
   //     }
   //   }
   // };
+
+  // FAZER VALIDAÇÃO DE SENHA - com o confirmar senha
 
   const checkCEP = (e) => {
     const cep = e.target.value.replace(/\D/g, "");
@@ -118,12 +223,13 @@ const CadastroPage = () => {
         setValue("cidade", data.localidade);
         setValue("bairro", data.bairro);
         setValue("estado", data.uf);
+        console.log(data);
       });
   };
 
   return (
     <div style={container}>
-      <form className="needs-validation" onSubmit={handleSubmit(onSubmit)}>
+      <form className="needs-validation">
         <div className="form-row">
           <div className="form-group col-md-6">
             <h1 style={textCadastro}>
@@ -166,7 +272,7 @@ const CadastroPage = () => {
               style={input}
               type="password"
               {...register("senha")}
-              placeholder="Senha"
+              placeholder="senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />
@@ -193,6 +299,8 @@ const CadastroPage = () => {
             type="text"
             placeholder="Digite seu CEP"
             {...register("cep")}
+            value={cep}
+            onChange={(e) => setCep(e.target.value)}
             onBlur={checkCEP}
           ></input>
 
@@ -206,15 +314,9 @@ const CadastroPage = () => {
             {...register("endereco")}
             id="inputEndereco"
             placeholder="Rua X, nº 0"
-          />
-          <label style={text} htmlFor="inputComplemento">
-            N°/Complemento
-          </label>
-          <input
-            required
-            style={input}
-            type="text"
-            placeholder="Apartamento, hotel, casa, etc."
+            value={rua}
+            onChange={(e) => setRua(e.target.value)}
+            onBlur={checkCEP.logradouro}
           />
         </div>
         <div className="form-row">
@@ -222,7 +324,16 @@ const CadastroPage = () => {
             <label style={text} htmlFor="inputCity">
               Cidade
             </label>
-            <input required style={input} type="text" {...register("cidade")} />
+            <input
+              required
+              style={input}
+              type="text"
+              {...register("cidade")}
+              placeholder="cidade"
+              value={cidade}
+              onChange={(e) => setCidade(e.target.value)}
+              onBlur={checkCEP.localidade}
+            />
 
             <label style={text} htmlFor="inputBairro">
               Bairro
@@ -232,6 +343,10 @@ const CadastroPage = () => {
               style={input}
               type="text"
               {...register("bairro")}
+              placeholder="bairro"
+              value={bairro}
+              onChange={(e) => setBairro(e.target.value)}
+              onBlur={checkCEP.bairro}
             ></input>
             <label style={text} htmlFor="inputEstado">
               Estado
@@ -241,11 +356,15 @@ const CadastroPage = () => {
               style={input}
               type="text"
               {...register("estado")}
+              placeholder="estado"
+              value={estado}
+              onChange={(e) => setEstado(e.target.value)}
+              onBlur={checkCEP.uf}
             ></input>
           </div>
         </div>
 
-        <button style={button} type="submit" onClick={() => handleSignIn()}>
+        <button style={button} onClick={() => cadastrarUsuario()}>
           Cadastrar
         </button>
       </form>

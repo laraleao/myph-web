@@ -77,7 +77,7 @@ const ListaRemedio = () => {
     setIdDoRemedioParaEditar(editar.remedioId);
   }
 
-  if(exibirEditarRemedio == true) {
+  if(exibirEditarRemedio === true) {
     return (
       <>
         <h1>Editar remedio</h1>

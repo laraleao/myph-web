@@ -85,7 +85,7 @@ const espacoBotao = {
 };
 
 const LoginPage = () => {
-  const { authenticated, login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 

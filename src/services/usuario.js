@@ -1,7 +1,18 @@
 import axios from "axios";
 
+// NOVO USUÁRIO INSERIDO
 // colocar login em algum lugar paara recuperar
 class UsuarioService {
+  inserirUsuario(usuario) {
+    return axios
+      .post(`http://localhost:9090/myph/usuario`, usuario, {
+        transformResponse: (response) => response,
+      })
+      .then((response) => response.data)
+      .catch((erro) => {
+        throw erro;
+      });
+  }
   login(usuario) {
     return axios
       .post(`http://localhost:9090/myph/usuario/login`, usuario, {
