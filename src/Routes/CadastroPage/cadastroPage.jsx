@@ -66,48 +66,31 @@ const CadastroPage = () => {
   const { register, handleSubmit, setValue } = useForm("");
 
   // só fazer a requisição ao servidor para salvar o formulário
-  const onSubmit = (e) => {
-    console.log(e);
-  };
+  const cadastrarRemedio = async (e) => {
+    try {
+      // remedio inserir
+      console.log("TRY");
+      const res = await UsuarioService.inserirUsuario({
+        nomeRemedio,
+        vencimento,
+        quantidade,
+      });
 
-  const handleSignIn = async () => {
-    console.log(email, senha);
-    if (email.length === 0 || senha.length === 0) {
-      return;
-    } else {
-      try {
-        // await api.post...
-        const response = await ("/usuario",
-        {
-          email: email,
-          senha: senha,
-        });
-        if (response.status === 201) {
-        }
-      } catch (e) {
-        console.log(e);
+      console.log(res);
+      //console.log(res);
+      if (res.status === 201) {
+        console.log("201");
+        alert("Remédio cadastrado com sucesso!");
+        window.location.href = "/listaRemedio";
+      } else {
+        console.log(res);
+        console.log("else: nao é 201");
+        alert("Cadastro com erro!\n\nTente novamente.");
       }
+    } catch (e) {
+      console.log("CAIU NO CATCH");
     }
   };
-
-  // handleSignInPress = async () => {
-  //   console.log(email, password);
-  //   if (email.length === 0 || password.length === 0) {
-  //     return;
-  //   } else {
-  //     try {
-  //       const response = await api.post('/usuario/login', {
-  //         email: email,
-  //         senha: password,
-  //       });
-  //       if (response.status == 200) {
-  //         navigation.navigate('Inicio');
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  // };
 
   const checkCEP = (e) => {
     const cep = e.target.value.replace(/\D/g, "");

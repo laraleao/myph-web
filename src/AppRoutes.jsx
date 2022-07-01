@@ -35,33 +35,6 @@ const AppRoutes = () => {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/cadastroPage" element={<CadastroPage />} />
           {/* Rota Privada */}
-          {/* <Route
-            exact
-            path="/"
-            element={
-              <Private>
-                <HomePage />
-              </Private>
-            }
-          /> */}
-          {/* <Route
-            exact
-            path="/"
-            element={
-              <Private>
-                <HomePage />
-              </Private>
-            }
-          /> */}
-          {/* <Route
-            exact
-            path="/"
-            element={
-              <Private>
-                <HomePage />
-              </Private>
-            }
-          /> */}
           <Route
             path="/remedio"
             element={

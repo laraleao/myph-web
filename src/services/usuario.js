@@ -2,6 +2,22 @@ import axios from "axios";
 
 // colocar login em algum lugar paara recuperar
 class UsuarioService {
+  async inserirUsuario(usuario) {
+    const response = await axios
+      .post(`http://localhost:9090/myph/remedios`, usuario)
+      .then((response) => {
+        console.log("data");
+        console.log(response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log("erro request");
+        return error;
+      });
+
+    return response;
+  }
+
   login(usuario) {
     return axios
       .post(`http://localhost:9090/myph/usuario/login`, usuario, {

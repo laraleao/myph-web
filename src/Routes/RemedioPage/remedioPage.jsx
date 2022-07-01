@@ -129,6 +129,7 @@ const Remedio = () => {
           <label style={text}>Quantidade:</label>
           <input
             required
+            min={0}
             style={input}
             {...register("number")}
             type="number"
