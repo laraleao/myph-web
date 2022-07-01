@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/navigation";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { HiOutlineCursorClick } from "react-icons/hi";
 import RemedioService from "../../services/remedio";
-
 
 const container = {
   backgroundColor: "white",
@@ -67,34 +65,26 @@ const button = {
 const Remedio = () => {
   const [nomeRemedio, setNomeRemedio] = useState("");
   const [vencimento, setVencimento] = useState("");
-   const [quantidade, setQuantidade] = useState(0);
+  const [quantidade, setQuantidade] = useState(0);
   const { register } = useForm("");
-  
-  const navigate = useNavigate();
-
-
-
-  // COUNT COMO SETAR?
 
   // só fazer a requisição ao servidor para salvar o formulário
   const cadastrarRemedio = async (e) => {
-     try {
+    try {
       // remedio inserir
-      console.log("TRY")
+      console.log("TRY");
       const res = await RemedioService.inserirRemedio({
         nomeRemedio,
         vencimento,
         quantidade,
       });
-      
-      
+
       console.log(res);
       //console.log(res);
       if (res.status === 201) {
         console.log("201");
         alert("Remédio cadastrado com sucesso!");
         window.location.href = "/listaRemedio";
-        //navigate("/listaRemedio");
       } else {
         console.log(res);
         console.log("else: nao é 201");
@@ -107,74 +97,76 @@ const Remedio = () => {
 
   return (
     <div>
-     <Navigation />
+      <Navigation />
 
       <div style={container}>
-          <h1 style={textRemedio}>Cadastro de Remédio</h1>
+        <h1 style={textRemedio}>Cadastro de Remédio</h1>
 
-          <div style={espaco}>
-            <label style={text}>Nome do Remédio:</label>
-            <input
-              required
-              style={input}
-              type="text"
-              {...register("nome")}
-              value={nomeRemedio}
-              onChange={(e) => setNomeRemedio(e.target.value)}
-            ></input>
-          </div>
-          <div style={espaco}>
-            <label style={text}>Validade:</label>
-            <input
-              required
-              style={input}
-              {...register("text/number")}
-              type="text/number"
-              value={vencimento}
-              onChange={(e) => setVencimento(e.target.value)}
-            ></input>
-          </div>
+        <div style={espaco}>
+          <label style={text}>Nome do Remédio:</label>
+          <input
+            required
+            style={input}
+            type="text"
+            {...register("nome")}
+            value={nomeRemedio}
+            onChange={(e) => setNomeRemedio(e.target.value)}
+          ></input>
+        </div>
+        <div style={espaco}>
+          <label style={text}>Validade:</label>
+          <input
+            required
+            style={input}
+            {...register("text/number")}
+            type="text/number"
+            value={vencimento}
+            onChange={(e) => setVencimento(e.target.value)}
+          ></input>
+        </div>
 
-                  <div style={espaco}>
-            <label style={text}>Quantidade:</label>
-            <input
-              required
-              style={input}
-              {...register("number")}
-              type="number"
-              value={quantidade}
-              onChange={(e) => setQuantidade(e.target.value)}
-            ></input>
-            </div>
+        <div style={espaco}>
+          <label style={text}>Quantidade:</label>
+          <input
+            required
+            style={input}
+            {...register("number")}
+            type="number"
+            value={quantidade}
+            onChange={(e) => setQuantidade(e.target.value)}
+          ></input>
+        </div>
 
-          <div style={espaco}>
-            <a
-              className="bula"
-              href="https://www.bulario.com/"
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                textDecoration: "none",
-                fontSize: 22,
-                color: "red",
-                fontWeight: "bold",
-              }}
-            >
-              <span style={{ color: "black" }}>Caso precise:</span> Consulte a
-              BULA aqui{" "}
-              <span style={{ color: "black" }}>
-                <HiOutlineCursorClick />
-              </span>
-            </a>
-          </div>
-
-          {/* CRIAR FUNÇÃO ONCLICK */}
-          <button
-            style={button}
-            onClick={() => {cadastrarRemedio()}}
+        <div style={espaco}>
+          <a
+            className="bula"
+            href="https://www.bulario.com/"
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              textDecoration: "none",
+              fontSize: 22,
+              color: "red",
+              fontWeight: "bold",
+            }}
           >
-            Cadastrar
-          </button>
+            <span style={{ color: "black" }}>Caso precise:</span> Consulte a
+            BULA aqui{" "}
+            <span style={{ color: "black" }}>
+              <HiOutlineCursorClick />
+            </span>
+          </a>
+        </div>
+
+        {/* CRIAR FUNÇÃO ONCLICK */}
+        <button
+          style={button}
+          onClick={() => {
+            cadastrarRemedio();
+          }}
+        >
+          Cadastrar
+        </button>
       </div>
     </div>
   );

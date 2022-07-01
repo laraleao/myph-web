@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -63,9 +62,30 @@ const AppRoutes = () => {
               </Private>
             }
           /> */}
-          <Route path="/remedio" element={<Remedio />} />
-          <Route path="/listaRemedio" element={<ListaRemedio />} />
-          <Route path="/alteraDados" element={<AlterarDados />} />
+          <Route
+            path="/remedio"
+            element={
+              <Private>
+                <Remedio />
+              </Private>
+            }
+          />
+          <Route
+            path="/listaRemedio"
+            element={
+              <Private>
+                <ListaRemedio />
+              </Private>
+            }
+          />
+          <Route
+            path="/alteraDados"
+            element={
+              <Private>
+                <AlterarDados />
+              </Private>
+            }
+          />
         </Routes>
       </AuthProvider>
     </Router>

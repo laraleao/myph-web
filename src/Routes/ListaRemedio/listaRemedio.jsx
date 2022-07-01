@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Navigation from "../../Navigation/navigation";
 import RemedioService from "../../services/remedio";
 import { useEffect } from "react";
-import Modal from 'react-modal'
-import { GiTrumpet } from "react-icons/gi";
+import { HiOutlineCursorClick } from "react-icons/hi";
+import Modal from "react-modal";
+
 const container = {
   backgroundColor: "white",
   justifyContent: "center",
@@ -17,29 +18,27 @@ const container = {
   color: "#2E798A",
   alignItens: "center",
 };
+
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
 };
-// const textRemedio = {
-//   fontSize: 40,
-//   fontWeight: "bold",
-//   letterSpacing: 0.25,
-//   color: "#2E798A",
-//   textAlign: "center",
-// };
 
 const listagem = {
   paddingBottom: "20px",
   color: "black",
   textAlign: "center",
   alignItens: "center",
+};
+
+const espaco = {
+  padding: 15,
 };
 
 const th = {
@@ -62,33 +61,28 @@ const acoes = {
   border: "1px solid",
 };
 
-// UseEffect para busca - como filmes
-
-
 const ListaRemedio = () => {
   const [editModal, setEditModal] = useState(false);
-  const [remedios,setRemedios]= useState(() => {});
-  const [remedioEdit, setRemedioEdit] = useState("")
+  const [remedios, setRemedios] = useState(() => {});
+  const [remedioEdit, setRemedioEdit] = useState("");
   console.log("Remedios na Listagem", remedios);
 
   // dados.push({ titulo: "teste" });
   // console.log("remedios da lista", dados);
   const edit = async (remedio) => {
-    console.log(remedio)
-    setRemedioEdit(remedio)
-    setEditModal(true)
-  }
+    console.log(remedio);
+    setRemedioEdit(remedio);
+    setEditModal(true);
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     async function carregarRemedios() {
-      const remedios = await RemedioService.buscarRemedios()
-      setRemedios(remedios)
-      console.log(remedios)
+      const remedios = await RemedioService.buscarRemedios();
+      setRemedios(remedios);
+      console.log(remedios);
     }
-    carregarRemedios() 
-  },[])
-
-
+    carregarRemedios();
+  }, []);
 
   if (!remedios || remedios.length === 0) {
     return (
@@ -104,6 +98,26 @@ const ListaRemedio = () => {
     return (
       <>
         <Navigation />
+        <div style={espaco}>
+          <a
+            className="bula"
+            href="https://www.bulario.com/"
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              textDecoration: "none",
+              fontSize: 22,
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            <span style={{ color: "black" }}>Caso precise:</span> Consulte a
+            BULA aqui{" "}
+            <span style={{ color: "black" }}>
+              <HiOutlineCursorClick />
+            </span>
+          </a>
+        </div>
         <div style={listagem}>
           {remedios && remedios.length > 0 && (
             <table style={tabela}>
@@ -128,7 +142,7 @@ const ListaRemedio = () => {
                     <td style={td}>{remedios.quantidade}</td>
                     {/* Fazer evento */}
                     <td style={td}>
-                      <button style={acoes} onClick={()=>edit(remedios)}>
+                      <button style={acoes} onClick={() => edit(remedios)}>
                         Editar
                       </button>
                     </td>
@@ -138,7 +152,9 @@ const ListaRemedio = () => {
                         onClick={async () => {
                           console.log("excluir:");
                           console.table(remedios);
-                          await RemedioService.excluirRemedio(remedios.remedioId);
+                          await RemedioService.excluirRemedio(
+                            remedios.remedioId
+                          );
                           window.location.reload();
                         }}
                       >
@@ -152,43 +168,28 @@ const ListaRemedio = () => {
           )}
         </div>
         <Modal
-        isOpen={editModal && remedioEdit != null}
-        onRequestClose={()=> setEditModal(false)}
-        style={customStyles}
-        contentLabel="Example Modal"
+          isOpen={editModal && remedioEdit != null}
+          onRequestClose={() => setEditModal(false)}
+          style={customStyles}
+          contentLabel="Example Modal"
         >
           <h2>Editar Remedio</h2>
-          
+
           <form>
             <div>
               <label>Nome do Remédio:</label>
-              <input
-              type="text"
-              value={remedioEdit.nomeRemedio}
-              >
-
-              </input>
+              <input type="text" value={remedioEdit.nomeRemedio}></input>
             </div>
             <div>
               <label>Validade:</label>
-              <input
-              type="text"
-              value={remedioEdit.vencimento}
-              >
-              </input>
+              <input type="text" value={remedioEdit.vencimento}></input>
             </div>
             <div>
               <label>Quantidade:</label>
-              <input
-              type="number"
-              value={remedioEdit.quantidade}
-              >
-              </input> 
+              <input type="number" value={remedioEdit.quantidade}></input>
             </div>
-              
           </form>
-          <button onClick={()=>setEditModal(false)}>fechar</button>
-          
+          <button onClick={() => setEditModal(false)}>fechar</button>
         </Modal>
       </>
     );
