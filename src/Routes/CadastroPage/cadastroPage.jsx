@@ -65,6 +65,7 @@ const CadastroPage = () => {
   const [senha, setSenha] = useState("");
   const [senhaConfirmar, setSenhaConfirmar] = useState("");
   const [rua, setRua] = useState("");
+  const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
@@ -76,6 +77,7 @@ const CadastroPage = () => {
     senha,
     senhaConfirmar,
     rua,
+    numero,
     bairro,
     cidade,
     estado,
@@ -94,6 +96,7 @@ const CadastroPage = () => {
       !senha ||
       !senhaConfirmar ||
       !rua ||
+      !numero ||
       !bairro ||
       !cidade ||
       !estado ||
@@ -113,6 +116,7 @@ const CadastroPage = () => {
         senha,
         senhaConfirmar,
         rua,
+        numero,
         bairro,
         cidade,
         estado,
@@ -130,9 +134,7 @@ const CadastroPage = () => {
         console.log("else: nao é 201");
         alert("Cadastro com erro!\n\nTente novamente.");
       }
-    } catch (e) {
-      console.log("CAIU NO CATCH");
-    }
+    } catch (e) {}
   };
 
   const checkCEP = (e) => {
@@ -237,7 +239,7 @@ const CadastroPage = () => {
             type="text"
             {...register("endereco")}
             id="inputEndereco"
-            placeholder="Rua X, nº 0"
+            placeholder="Rua X"
             value={rua}
             onChange={(e) => setRua(e.target.value)}
           />
@@ -247,8 +249,11 @@ const CadastroPage = () => {
           <input
             required
             style={input}
-            type="text"
+            type="text/number"
+            {...register("numero")}
             placeholder="Apartamento, hotel, casa, etc."
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
           />
         </div>
         <div className="form-row">
