@@ -78,8 +78,7 @@ const Remedio = () => {
 
   // só fazer a requisição ao servidor para salvar o formulário
   const cadastrarRemedio = async (e) => {
-    console.log("ON SUBMIT OIIIIIIIII")
-    try {
+     try {
       // remedio inserir
       console.log("TRY")
       const res = await RemedioService.inserirRemedio({
@@ -90,9 +89,6 @@ const Remedio = () => {
       
       
       console.log(res);
-
-      console.log("passou aqui")
-      alert("alert alert")
       //console.log(res);
       if (res.status === 201) {
         console.log("201");
