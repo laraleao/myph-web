@@ -3,8 +3,9 @@
 // quando chegar um metodo options ele tbm vai ignorar
 
 import React, { useState, useEffect, createContext } from "react";
-
 import { useNavigate } from "react-router-dom";
+
+import { removeUserFromLocalStorageAndRedirect } from "../util/utils";
 
 export const AuthContext = createContext();
 // tudo aquilo que preciso deixar público
@@ -37,19 +38,18 @@ export const AuthProvider = ({ children }) => {
     // GUARDAR TOKEN AQUI
     localStorage.setItem("user", JSON.stringify(loggedUser));
 
-    if (senha === "secret") {
-      setUser({ loggedUser });
-      navigate("/");
-    }
+    // if (senha === "secret") {
+    //   setUser({ loggedUser });
+    //   navigate("/");
+    // }
   };
 
   // user != null
   // authenticated = true
 
   const logout = () => {
-    localStorage.removeItem("user");
     setUser(null);
-    navigate("/login");
+    removeUserFromLocalStorageAndRedirect();
   };
 
   return (

@@ -78,7 +78,7 @@ const Remedio = () => {
       });
 
       console.log(res);
-      //console.log(res);
+
       if (res.status === 201) {
         console.log("201");
         alert("Remédio cadastrado com sucesso!");

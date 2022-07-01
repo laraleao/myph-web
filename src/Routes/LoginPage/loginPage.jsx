@@ -114,9 +114,7 @@ const LoginPage = () => {
           localStorage.setItem("token", response);
           navigate("/listaRemedio");
         }
-      } catch (e) {
-        
-      }
+      } catch (e) {}
     }
   };
 

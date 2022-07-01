@@ -31,9 +31,11 @@ const customStyles = {
 };
 
 const listagem = {
+  height: "auto",
+  width: "95%",
+  textAlign: "center",
   paddingBottom: "20px",
   color: "black",
-  textAlign: "center",
   alignItens: "center",
 };
 

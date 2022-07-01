@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GiMedicinePills } from "react-icons/gi";
 import UsuarioService from "../../services/usuario";
+import { arePasswordsEqual } from "../../util/validators";
 
 const container = {
   backgroundColor: "white",
@@ -70,24 +71,16 @@ const CadastroPage = () => {
   const [estado, setEstado] = useState("");
   const [cep, setCep] = useState("");
 
-  const cadastro = [
-    email,
-    nome,
-    senha,
-    senhaConfirmar,
-    rua,
-    numero,
-    bairro,
-    cidade,
-    estado,
-    cep,
-  ];
-
   const { register, setValue } = useForm("");
 
   // só fazer a requisição ao servidor para salvar o formulário
   const cadastrarUsuario = async (e) => {
     e.preventDefault();
+
+    if (!arePasswordsEqual(senha, senhaConfirmar)) {
+      alert("As senhas precisam ser iguais!");
+      return;
+    }
 
     if (
       !email ||
@@ -101,7 +94,6 @@ const CadastroPage = () => {
       !estado ||
       !cep
     ) {
-      console.log(cadastro);
       alert("É necessário preencher todos os campos!");
       return;
     }
