@@ -146,6 +146,7 @@ const AlterarDadosPage = () => {
   const [usuario, setUsuario] = useState(() => {});
   const [usuarioEditNome, setEditNome] = useState("");
   const [usuarioEditEmail, setEditEmail] = useState("");
+  const [usuarioEditSenha, setEditSenha] = useState("");
 
   console.log("Usuário na Lista", usuario);
 
@@ -154,6 +155,7 @@ const AlterarDadosPage = () => {
 
     setEditNome(usuario.nome);
     setEditEmail(usuario.email);
+    setEditSenha(usuario.senha);
     setEditModal(true);
   };
 
@@ -168,12 +170,15 @@ const AlterarDadosPage = () => {
 
   const atualizaUsuario = async (e) => {
     e.preventDefault();
-    console.log("Usuario => " + [usuarioEditNome, usuarioEditEmail]);
+    console.log(
+      "Usuario => " + [usuarioEditNome, usuarioEditEmail, usuarioEditSenha]
+    );
     try {
       // usuario atualizar
       const res = await UsuarioService.atualizaUsuario({
         nome: usuarioEditNome,
         email: usuarioEditEmail,
+        senha: usuarioEditSenha,
       });
 
       console.log(res);
@@ -261,6 +266,16 @@ const AlterarDadosPage = () => {
               type="text"
               value={usuarioEditEmail}
               onChange={(e) => setEditEmail(e.target.value)}
+            ></input>
+          </div>
+
+          <div>
+            <label style={text}>Senha</label>
+            <input
+              style={input}
+              type="text"
+              value={usuarioEditSenha}
+              onChange={(e) => setEditSenha(e.target.value)}
             ></input>
           </div>
         </form>
