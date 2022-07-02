@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { GiMedicinePills } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
 import UsuarioService from "../../services/usuario";
 
 import { AuthContext } from "../../contexts/auth";
@@ -85,7 +84,7 @@ const espacoBotao = {
 };
 
 const LoginPage = () => {
-  const { authenticated, login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -95,8 +94,6 @@ const LoginPage = () => {
 
     // chamada de integração contexto e api
   };
-
-  const navigate = useNavigate();
 
   // token em um lugar para ter chamada
   const handleSignInPress = async () => {
@@ -112,7 +109,7 @@ const LoginPage = () => {
         if (response) {
           // localStorage.setItem - para token passar nas outras chamadas
           localStorage.setItem("token", response);
-          navigate("/listaRemedio");
+          window.location.href = "/listaRemedio";
         }
       } catch (e) {}
     }

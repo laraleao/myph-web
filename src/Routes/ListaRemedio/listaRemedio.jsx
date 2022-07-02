@@ -63,17 +63,70 @@ const acoes = {
   border: "1px solid",
 };
 
+const button = {
+  textDecoration: "none",
+  border: "none",
+  backgroundColor: "#22577A",
+  alignItems: "center",
+  justifyContent: "center",
+  height: 36,
+  width: 100,
+  color: "white",
+  borderRadius: 3,
+  cursor: "pointer",
+  fontSize: 20,
+  margin: 55,
+};
+
+const input = {
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: 8,
+  height: 40,
+  width: 230,
+  margin: 18,
+  borderWidth: 1,
+  borderRadius: 2,
+  padding: 10,
+};
+
+const text = {
+  alignItems: "center",
+  color: "#091357",
+  fontSize: 18,
+  fontWeight: "bold",
+  justifyContent: "center",
+  letterSpacing: 0.25,
+  padding: 8,
+};
+
+const textCadastro = {
+  fontSize: 35,
+  fontWeight: "bold",
+  letterSpacing: 0.25,
+  color: "#2E798A",
+  textAlign: "center",
+  margin: 25,
+};
+
 const ListaRemedio = () => {
   const [editModal, setEditModal] = useState(false);
   const [remedios, setRemedios] = useState(() => {});
-  const [remedioEdit, setRemedioEdit] = useState("");
+  const [remedioEditId, setRemedioEditId] = useState(0);
+  const [remedioEditNome, setRemedioEditNome] = useState("");
+  const [remedioEditVencimento, setRemedioEditVencimento] = useState("");
+  const [remedioEditQtde, setRemedioEditQtde] = useState(0);
+
   console.log("Remedios na Listagem", remedios);
 
   // dados.push({ titulo: "teste" });
   // console.log("remedios da lista", dados);
-  const edit = async (remedio) => {
+  const edit = (remedio) => {
     console.log(remedio);
-    setRemedioEdit(remedio);
+    setRemedioEditId(remedio.remedioId);
+    setRemedioEditNome(remedio.nomeRemedio);
+    setRemedioEditVencimento(remedio.vencimento);
+    setRemedioEditQtde(remedio.quantidade);
     setEditModal(true);
   };
 
@@ -85,6 +138,38 @@ const ListaRemedio = () => {
     }
     carregarRemedios();
   }, []);
+
+  const atualizaRemedio = async (e) => {
+    e.preventDefault();
+    console.log(
+      "REMEDIO => " +
+        [remedioEditNome, remedioEditQtde, remedioEditId, remedioEditVencimento]
+    );
+    try {
+      // remedio atualizar
+      console.log("TRY");
+      const res = await RemedioService.atualizaRemedio({
+        nomeRemedio: remedioEditNome,
+        quantidade: remedioEditQtde,
+        remedioId: remedioEditId,
+        vencimento: remedioEditVencimento,
+      }, );
+
+      console.log(res);
+
+      if (res.status === 201) {
+        console.log("201");
+        alert("Remédio alterado com sucesso!");
+        window.location.href = "/listaRemedio";
+        window.location.reload();
+      } else {
+        console.log("else: nao é 200");
+        alert("Cadastro com erro!\n\nTente novamente.");
+      }
+    } catch (e) {
+      console.log("CAIU NO CATCH");
+    }
+  };
 
   if (!remedios || remedios.length === 0) {
     return (
@@ -136,15 +221,15 @@ const ListaRemedio = () => {
               </thead>
               <tbody>
                 {/* interando a lista */}
-                {remedios.map((remedios) => (
-                  <tr key={remedios.remedioId}>
+                {remedios.map((remedio) => (
+                  <tr key={remedio.remedioId}>
                     {/* textos */}
-                    <td style={td}>{remedios.nomeRemedio}</td>
-                    <td style={td}>{remedios.vencimento}</td>
-                    <td style={td}>{remedios.quantidade}</td>
+                    <td style={td}>{remedio.nomeRemedio}</td>
+                    <td style={td}>{remedio.vencimento}</td>
+                    <td style={td}>{remedio.quantidade}</td>
                     {/* Fazer evento */}
                     <td style={td}>
-                      <button style={acoes} onClick={() => edit(remedios)}>
+                      <button style={acoes} onClick={() => edit(remedio)}>
                         Editar
                       </button>
                     </td>
@@ -153,9 +238,9 @@ const ListaRemedio = () => {
                         style={acoes}
                         onClick={async () => {
                           console.log("excluir:");
-                          console.table(remedios);
+                          console.table(remedio);
                           await RemedioService.excluirRemedio(
-                            remedios.remedioId
+                            remedio.remedioId
                           );
                           window.location.reload();
                         }}
@@ -170,28 +255,54 @@ const ListaRemedio = () => {
           )}
         </div>
         <Modal
-          isOpen={editModal && remedioEdit != null}
+          isOpen={editModal}
           onRequestClose={() => setEditModal(false)}
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2>Editar Remedio</h2>
+          <h2 style={textCadastro}>Editar Rémedio</h2>
 
           <form>
             <div>
-              <label>Nome do Remédio:</label>
-              <input type="text" value={remedioEdit.nomeRemedio}></input>
+              <label style={text}>Nome do Remédio:</label>
+              <input
+                style={input}
+                type="text"
+                value={remedioEditNome}
+                onChange={(e) => setRemedioEditNome(e.target.value)}
+              ></input>
             </div>
             <div>
-              <label>Validade:</label>
-              <input type="text" value={remedioEdit.vencimento}></input>
+              <label style={text}>Validade:</label>
+              <input
+                style={input}
+                type="text"
+                value={remedioEditVencimento}
+                onChange={(e) => setRemedioEditVencimento(e.target.value)}
+              ></input>
             </div>
             <div>
-              <label>Quantidade:</label>
-              <input type="number" value={remedioEdit.quantidade}></input>
+              <label style={text}>Quantidade:</label>
+              <input
+                style={input}
+                type="number"
+                value={remedioEditQtde}
+                onChange={(e) => setRemedioEditQtde(e.target.value)}
+              ></input>
             </div>
           </form>
-          <button onClick={() => setEditModal(false)}>fechar</button>
+          <button
+            style={button}
+            onClick={async (e) => {
+              console.log("atualizar:");
+              await atualizaRemedio(e);
+            }}
+          >
+            Atualizar
+          </button>
+          <button style={button} onClick={() => setEditModal(false)}>
+            Fechar
+          </button>
         </Modal>
       </>
     );

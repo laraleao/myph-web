@@ -14,33 +14,45 @@ class RemedioService {
       });
   }
   async inserirRemedio(remedio) {
-    const response = await axios.post(`http://localhost:9090/myph/remedios`, remedio, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }).then(response => {
-      console.log("data")
-      console.log(response.data)
-      return response;
-    })
-    .catch(error => {
-      console.log("erro request")
-      return error;
-    })
+    const response = await axios
+      .post(`http://localhost:9090/myph/remedios`, remedio, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log("data");
+        console.log(response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log("erro request");
+        return error;
+      });
 
     return response;
   }
 
   atualizaRemedio(remedio) {
-    return axios.put(
-      `http://localhost:9090/myph/remedios/${remedio.id}`,
-      remedio,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    return axios
+      .put(
+        `http://localhost:9090/myph/remedios/${remedio.remedioId}`,
+        remedio,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("data");
+        console.log(response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log("erro request");
+        return error;
+      });
   }
 
   excluirRemedio(idRemedio) {

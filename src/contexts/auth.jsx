@@ -1,17 +1,10 @@
-// FAZER CORS - para ligar com o back
-// pegar o do prof e no filter fazer o request get method.equals
-// quando chegar um metodo options ele tbm vai ignorar
-
 import React, { useState, useEffect, createContext } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { removeUserFromLocalStorageAndRedirect } from "../util/utils";
 
 export const AuthContext = createContext();
 // tudo aquilo que preciso deixar público
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,15 +30,7 @@ export const AuthProvider = ({ children }) => {
 
     // GUARDAR TOKEN AQUI
     localStorage.setItem("user", JSON.stringify(loggedUser));
-
-    // if (senha === "secret") {
-    //   setUser({ loggedUser });
-    //   navigate("/");
-    // }
   };
-
-  // user != null
-  // authenticated = true
 
   const logout = () => {
     setUser(null);
