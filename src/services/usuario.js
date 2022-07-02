@@ -25,9 +25,9 @@ class UsuarioService {
       })
       .then((response) => response.data);
   }
-  buscarUsuario() {
+  buscarUsuario(usuario) {
     return axios
-      .get(`http://localhost:9090/myph/usuario`, {
+      .get(`http://localhost:9090/myph/usuario`, usuario, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -47,15 +47,21 @@ class UsuarioService {
   }
 
   atualizaUsuario(usuario) {
-    return axios.put(
-      `http://localhost:9090/myph/usuario/${usuario.id}`,
-      usuario,
-      {
+    return axios
+      .put(`http://localhost:9090/myph/usuario/${usuario.usuarioId}`, usuario, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }
-    );
+      })
+      .then((response) => {
+        console.log("data");
+        console.log(response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log("erro request");
+        return error;
+      });
   }
 
   excluirUsuario(usuario) {

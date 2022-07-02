@@ -37,7 +37,7 @@ const navigation = () => {
         </Link>
 
         <Link style={link} to="/alteraDados">
-          <li>Sair</li>
+          <li>Alterar Dados</li>
         </Link>
       </ul>
     </nav>

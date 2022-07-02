@@ -165,8 +165,6 @@ const ListaRemedio = () => {
 
   console.log("Remedios na Listagem", remedios);
 
-  // dados.push({ titulo: "teste" });
-  // console.log("remedios da lista", dados);
   const edit = (remedio) => {
     console.log(remedio);
     setRemedioEditId(remedio.remedioId);
@@ -193,7 +191,6 @@ const ListaRemedio = () => {
     );
     try {
       // remedio atualizar
-      console.log("TRY");
       const res = await RemedioService.atualizaRemedio({
         nomeRemedio: remedioEditNome,
         quantidade: remedioEditQtde,
@@ -209,11 +206,10 @@ const ListaRemedio = () => {
         window.location.href = "/listaRemedio";
         window.location.reload();
       } else {
-        console.log("else: nao é 200");
+        console.log("else: nao é 201");
         alert("Cadastro com erro!\n\nTente novamente.");
       }
     } catch (e) {
-      console.log("CAIU NO CATCH");
     }
   };
 
