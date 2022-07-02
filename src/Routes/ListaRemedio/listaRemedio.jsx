@@ -36,37 +36,83 @@ const listagem = {
   textAlign: "center",
   paddingBottom: "20px",
   color: "black",
-  alignItens: "center",
+  margin: 80,
 };
 
 const espaco = {
+  margin: 80,
   padding: 15,
 };
 
 const th = {
   border: "1px solid",
-  textAlign: "left",
+  textAlign: "center",
+  justifyContent: "center",
+  textDecoration: "none",
+  backgroundColor: "#22577A",
+  alignItems: "center",
+  color: "white",
+  borderRadius: 3,
 };
 
 const td = {
   border: "1px solid",
-  textAlign: "left",
+  textAlign: "center",
+  fontWeight: "bold",
 };
 
 const tabela = {
   color: "black",
-  width: "90%",
+  width: "80%",
 };
 
 const acoes = {
   textAlign: "center",
+  justifyContent: "center",
   border: "1px solid",
+  textDecoration: "none",
+  backgroundColor: "#22577A",
+  alignItems: "center",
+  color: "white",
+  borderRadius: 3,
+  cursor: "pointer",
+  height: 36,
+  width: 50,
+};
+
+const acoesExcluir = {
+  textAlign: "center",
+  justifyContent: "center",
+  border: "1px solid",
+  textDecoration: "none",
+  backgroundColor: "red",
+  alignItems: "center",
+  color: "white",
+  borderRadius: 3,
+  cursor: "pointer",
+  height: 36,
+  width: 50,
 };
 
 const button = {
   textDecoration: "none",
   border: "none",
   backgroundColor: "#22577A",
+  alignItems: "center",
+  justifyContent: "center",
+  height: 36,
+  width: 100,
+  color: "white",
+  borderRadius: 3,
+  cursor: "pointer",
+  fontSize: 20,
+  margin: 55,
+};
+
+const buttonFechar = {
+  textDecoration: "none",
+  border: "none",
+  backgroundColor: "red",
   alignItems: "center",
   justifyContent: "center",
   height: 36,
@@ -153,7 +199,7 @@ const ListaRemedio = () => {
         quantidade: remedioEditQtde,
         remedioId: remedioEditId,
         vencimento: remedioEditVencimento,
-      }, );
+      });
 
       console.log(res);
 
@@ -235,7 +281,7 @@ const ListaRemedio = () => {
                     </td>
                     <td style={td}>
                       <button
-                        style={acoes}
+                        style={acoesExcluir}
                         onClick={async () => {
                           console.log("excluir:");
                           console.table(remedio);
@@ -300,7 +346,7 @@ const ListaRemedio = () => {
           >
             Atualizar
           </button>
-          <button style={button} onClick={() => setEditModal(false)}>
+          <button style={buttonFechar} onClick={() => setEditModal(false)}>
             Fechar
           </button>
         </Modal>

@@ -28,10 +28,6 @@ const navigation = () => {
   return (
     <nav style={nav}>
       <ul style={navLinks}>
-        {/* <Link style={link} to="/home">
-          <li>Home</li>
-        </Link> */}
-
         <Link style={link} to="/remedio">
           <li> Cadastro de Remédio</li>
         </Link>
@@ -41,7 +37,7 @@ const navigation = () => {
         </Link>
 
         <Link style={link} to="/alteraDados">
-          <li>Alterar Dados</li>
+          <li>Sair</li>
         </Link>
       </ul>
     </nav>
